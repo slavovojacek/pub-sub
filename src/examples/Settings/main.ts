@@ -1,8 +1,8 @@
-import { Subscription } from "../../Subscription"
+import { PubSub } from "../../PubSub"
 
 import { Font, Message, State, Theme } from "./types"
 
-class Settings extends Subscription<Message, State> {
+class Settings extends PubSub<Message, State> {
   setLightTheme = () => {
     return this.publish(Message.SetTheme, (prevState) => ({
       ...prevState,

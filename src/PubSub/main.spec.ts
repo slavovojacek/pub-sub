@@ -1,6 +1,6 @@
 import { is_err, is_ok } from "@usefultools/monads"
 
-import Subscription from "./main"
+import PubSub from "./main"
 import { SubscriptionFn } from "./types"
 
 describe("Subscription", () => {
@@ -13,7 +13,7 @@ describe("Subscription", () => {
     bar: string
   }
 
-  class TestSubscription extends Subscription<Message, State> {
+  class TestSubscription extends PubSub<Message, State> {
     notify = (type: Message, nextState: State) => {
       return this.publish(type, nextState)
     }

@@ -10,7 +10,7 @@ import {
 } from "@usefultools/utils"
 import { InternalState, SubscriptionFn, SubscriptionItem } from "./types"
 
-class Subscription<MessageType, State> {
+class PubSub<MessageType, State> {
   private state: InternalState<State>
   private subscriptions: Array<SubscriptionItem<MessageType, State>>
 
@@ -102,4 +102,4 @@ class Subscription<MessageType, State> {
   }
 }
 
-export default Subscription
+export default PubSub
