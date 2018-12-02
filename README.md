@@ -21,6 +21,8 @@ npm install @usefultools/pub-sub
 
 ## Usage
 
+### 1) Define your models 💡
+
 To ensure we subscribe to the right events when a state change occurs,
 we need to define the possible message types.
 
@@ -56,6 +58,8 @@ interface State {
 }
 
 ```
+
+#### 2) Create a PubSub module ⬇️⬆️
 
 We can now create the pub-sub service including the (for now blank) methods we will use to change fonts and themes.
 
@@ -106,6 +110,8 @@ function onChange(nextState: State, messageType?: Message) {
 
 ```
 
+#### 3) Subscribe, subscribe, subscribe 😎
+
 You can subscribe in 3 different ways as per examples below.
 
 ```typescript
@@ -140,6 +146,8 @@ twice) and `onStateChanged` (called once) will be called with:
 ({ font: FontType.Serif, theme: ThemeType.Light, }, MessageType.SetTheme)
 
 ```
+
+#### 4) Unsubscribe 👋🏼
 
 To unsubscribe, use the `unsubscribe: (id: string) => Result<string, string>` method:
 
