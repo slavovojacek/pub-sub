@@ -64,6 +64,8 @@ interface State {
 We can now create the pub-sub service including the (for now blank) methods we will use to change fonts and themes.
 
 ```typescript
+import { PubSub } from "@usefultools/pub-sub"
+
 class Settings extends PubSub<MessageType, State> {
   setLightTheme = () => { /* do something */ }
   setDarkTheme = () => { /* do something */ }
@@ -81,6 +83,8 @@ const initialState: State = {
 To keep things simple, let's focus on the `setLightTheme` implementation.
 
 ```typescript
+import { PubSub } from "@usefultools/pub-sub"
+
 class Settings extends PubSub<MessageType, State> {
   setLightTheme = () => {
     return this.publish(MessageType.SetTheme, prevState => ({
