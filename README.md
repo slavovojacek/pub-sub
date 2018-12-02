@@ -1,7 +1,7 @@
 [![CircleCI](https://circleci.com/gh/litchi-io/pub-sub.svg?style=svg)](https://circleci.com/gh/litchi-io/pub-sub)
 [![codecov](https://codecov.io/gh/litchi-io/pub-sub/branch/master/graph/badge.svg)](https://codecov.io/gh/litchi-io/pub-sub)
 [![npm version](https://img.shields.io/npm/v/@usefultools/pub-sub.svg)](https://www.npmjs.com/package/@usefultools/pub-sub)
-[![GuardRails badge](https://badges.production.guardrails.io/litchi-io/pub-sub.svg)](https://www.guardrails.io)
+[![GuardRails](https://badges.production.guardrails.io/litchi-io/pub-sub.svg)](https://www.guardrails.io)
 [![Security Responsible Disclosure](https://img.shields.io/badge/Security-Responsible%20Disclosure-yellow.svg)](https://github.com/litchi-io/pub-sub/blob/master/SECURITY.md)
 
 # Publish-Subscribe
@@ -19,11 +19,10 @@ Please note that the **TypeScript target is ES6**.
 npm install @usefultools/pub-sub
 ```
 
-
 ## Usage
 
 To ensure we subscribe to the right events when a state change occurs,
-we need to define the possible message types. This can be updated later.
+we need to define the possible message types.
 
 ```typescript
 enum Message {
@@ -33,8 +32,7 @@ enum Message {
 
 ```
 
-We know that we will be working with `Font`s and `Theme`s,
-so let's define these.
+We know that we will be working with `Font`s and `Theme`s, so let's define them.
 
 ```typescript
 enum Font {
@@ -59,7 +57,7 @@ interface State {
 
 ```
 
-We can now create the pub-sub service itself.
+We can now create the pub-sub service including the (for now blank) methods we will use to change fonts and themes.
 
 ```typescript
 class Settings extends PubSub<MessageType, State> {
@@ -76,7 +74,6 @@ const initialState: State = {
 
 ```
 
-We need to be able to notify all our subscriptions of when state changes occur.
 To keep things simple, let's focus on the `setLightTheme` implementation.
 
 ```typescript
@@ -95,11 +92,12 @@ class Settings extends PubSub<MessageType, State> {
 
 ```
 
-`this.publish` will, as its name suggests, publish a message to every
-subscription. Each active subscription receives the new state/value
-as well as the message type that triggered this change.
+`this.publish` will, as its name suggests, publish a message to every active subscription. Every message consists of
 
-The subscriptions have the following type definition:
+a) new state/value
+b) message type
+
+In turn, subscriptions have the following signature:
 
 ```typescript
 function onChange(nextState: State, messageType?: Message) {
@@ -126,7 +124,7 @@ settings.subscribe(Message.SetTheme, onThemeChanged)
 settings.subscribe([Message.SetTheme, Message.SetFont], onThemeChanged)
 
 // Run onStateChanged regardless of message type, in this
-// case it makes sense to use the second argument
+// case it makes sense to consume the messageType as well
 function onStateChanged(nextState: State, messageType: MessageType) {
   console.log(messageType, nextState)
 }
@@ -143,6 +141,15 @@ twice) and `onStateChanged` (called once) will be called with:
 
 ```
 
+To unsubscribe, use the `unsubscribe: (id: string) => Result<string, string>` method:
+
+```typescript
+const subscription = settings.subscribe(Message.SetTheme, onThemeChanged)
+...
+settings.unsubscribe(subscription)
+
+```
+
 ### React Example
 
 @TODO
@@ -150,8 +157,6 @@ twice) and `onStateChanged` (called once) will be called with:
 ## Contributing
 
 If you have comments, complaints, or ideas for improvements, feel free to open an issue or a pull request! See [Contributing guide](./CONTRIBUTING.md) for details about project setup, testing, etc.
-
-If you make or are considering making an app using WatermelonDB, please let us know!
 
 ## Author and license
 

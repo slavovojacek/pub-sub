@@ -26,7 +26,7 @@ class PubSub<MessageType, State> {
     const existingSubscriptionId = this.getSubscriptionId(fn)
 
     if (is_ok(existingSubscriptionId)) {
-      return existingSubscriptionId.ok()
+      return existingSubscriptionId.unwrap()
     } else {
       const newId = generateId()
 
