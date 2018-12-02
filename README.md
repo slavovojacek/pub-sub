@@ -21,7 +21,7 @@ npm install @usefultools/pub-sub
 
 ## Usage
 
-### 1) Define your models 💡
+#### 1) Define your models 💡
 
 To ensure we subscribe to the right events when a state change occurs,
 we need to define the possible message types.
