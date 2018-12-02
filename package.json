@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@usefultools/monads": "^2.0.3-0",
-    "@usefultools/utils": "^6.2.0",
+    "@usefultools/utils": "^6.2.1",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
