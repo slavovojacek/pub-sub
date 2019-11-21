@@ -35,7 +35,7 @@ class PubSub<MessageType, State> {
       if (isNonEmptyArray(messageType)) {
         onMessageType = new Set(messageType)
       } else if (isNonEmptyString(messageType)) {
-        onMessageType = new Set().add(messageType)
+        onMessageType = new Set([messageType])
       } else {
         onMessageType = new Set()
       }
